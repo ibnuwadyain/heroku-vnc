@@ -83,6 +83,7 @@ RUN apt-get upgrade
 RUN apt-get install -y software-properties-common
 RUN apt-get update
 RUN add-apt-repository ppa:x2go/stable
+RUN apt-get install -y x2goserver x2goserver-xsession
 RUN apt-get update
 
 # Set up the user
