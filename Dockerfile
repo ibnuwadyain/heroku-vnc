@@ -16,6 +16,7 @@ RUN set -ex; \
         vim \
 	vlc \
         bash \
+	apt-utils \
         net-tools \
         novnc \
         xfce4 \
@@ -53,6 +54,8 @@ RUN dpkg-reconfigure locales
 
 RUN sudo apt-get update && sudo apt-get install -y obs-studio
 
+
+
 COPY . /app
 RUN chmod +x /app/conf.d/websockify.sh
 RUN chmod +x /app/run.sh
@@ -74,6 +77,13 @@ ENV UNAME pacat
 
 RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install --yes pulseaudio-utils
+
+RUN apt-get update
+RUN apt-get upgrade
+RUN apt-get install -y software-properties-common
+RUN apt-get update
+RUN add-apt-repository ppa:x2go/stable
+RUN apt-get update
 
 # Set up the user
 RUN export UNAME=$UNAME UID=1000 GID=1000 && \
