@@ -44,6 +44,7 @@ Step 2: Select 'Input Method', then click add button, choose Chinese and Pinyin 
 Step 3: Now it can support Chinese, Enjoy!
 EOF
 
+chmod +x /Desktop/AnyDesk.desktop
 chmod +x /Desktop/Chromium.desktop
 chmod +x /Desktop/Swicth_to_Chinese_input.sh
 exec supervisord -c /app/supervisord.conf
