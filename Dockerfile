@@ -61,8 +61,8 @@ RUN chmod +x /app/conf.d/websockify.sh
 RUN chmod +x /app/run.sh
 RUN chmod +x /app/expect_vnc.sh
 RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list
-RUN echo "deb http://deb.anydesk.com/ all main"  >> /etc/apt/sources.list
-RUN echo "deb https://xpra.org/ bionic main"  >> /etc/apt/sources.list
+RUN echo "deb [trusted=yes] http://deb.anydesk.com/ all main"  >> /etc/apt/sources.list
+RUN echo "deb [trusted=yes] https://xpra.org/ bionic main"  >> /etc/apt/sources.list
 RUN wget --no-check-certificate https://dl.google.com/linux/linux_signing_key.pub -P /app
 RUN wget --no-check-certificate -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY -O /app/anydesk.key
 RUN wget --no-check-certificate -q https://xpra.org/gpg.asc -O- | apt-key add -
