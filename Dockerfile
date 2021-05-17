@@ -87,8 +87,9 @@ RUN apt-get update
 RUN add-apt-repository ppa:x2go/stable
 RUN apt-get install -y x2goserver x2goserver-xsession
 RUN apt-get update
-RUN git clone https://github.com/Xpra-org/xpra; cd xpra
-RUN python3 ./setup.py install
+RUN git clone https://github.com/Xpra-org/xpra; cd xpra \
+    python3 ./setup.py install
+    
 
 # Set up the user
 RUN export UNAME=$UNAME UID=1000 GID=1000 && \
@@ -100,6 +101,16 @@ RUN export UNAME=$UNAME UID=1000 GID=1000 && \
     chmod 0440 /etc/sudoers.d/${UNAME} && \
     chown ${UID}:${GID} -R /home/${UNAME} && \
     gpasswd -a ${UNAME} audio
+    
+#Installing Xrdp
+RUN apt-get -qy install xrdp -y && sudo service xrdp restart
+#Installing Ngrok
+RUN wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -O ngrok.zip && unzip ngrok.zip
+#Creating Tunnel
+ENV ngroktoken: ${{ secrets.NGROK_AUTH_TOKEN }}
+RUN |
+        ./ngrok authtoken $ngroktoken
+        ./ngrok tcp 3389
 
 RUN echo xfce4-session >~/.xsession
 RUN echo "exec /etc/X11/Xsession /usr/bin/xfce4-session" 
