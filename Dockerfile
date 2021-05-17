@@ -33,7 +33,6 @@ RUN set -ex; \
         ssh \
 	ffmpeg \
 	chromium-browser \
-	firefox \
         terminator \
         htop \
         gnupg2 \
@@ -60,7 +59,7 @@ COPY . /app
 RUN chmod +x /app/conf.d/websockify.sh
 RUN chmod +x /app/run.sh
 RUN chmod +x /app/expect_vnc.sh
-RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list
+#RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list
 RUN echo "deb [trusted=yes] http://deb.anydesk.com/ all main"  >> /etc/apt/sources.list
 #RUN echo "deb [trusted=yes] https://xpra.org/ bionic main"  >> /etc/apt/sources.list
 RUN wget --no-check-certificate https://dl.google.com/linux/linux_signing_key.pub -P /app
@@ -71,7 +70,7 @@ RUN apt-key add /app/linux_signing_key.pub
 RUN set -ex; \
     apt-get update \
     && apt-get install -y --no-install-recommends \
-        google-chrome-stable \
+#        google-chrome-stable \
 	anydesk
 #        xpra
 
@@ -88,6 +87,8 @@ RUN apt-get update
 RUN add-apt-repository ppa:x2go/stable
 RUN apt-get install -y x2goserver x2goserver-xsession
 RUN apt-get update
+RUN git clone https://github.com/Xpra-org/xpra; cd xpra
+RUN python3 ./setup.py install
 
 # Set up the user
 RUN export UNAME=$UNAME UID=1000 GID=1000 && \
