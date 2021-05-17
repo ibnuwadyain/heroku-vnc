@@ -105,9 +105,9 @@ RUN export UNAME=$UNAME UID=1000 GID=1000 && \
 #Installing Xrdp
 RUN apt-get -qy install xrdp -y && sudo service xrdp restart
 #Installing Ngrok
-RUN wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -O ngrok.zip && unzip ngrok.zip
+RUN wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -O /usr/bin/ngrok.zip && unzip ngrok.zip
 #Creating Tunnel
-ENV ngroktoken: ${{ secrets.NGROK_AUTH_TOKEN }}
+ENV ngroktoken: ${{ 1qww1vtgs981PJoLNO3Ri18mT6k_45M7fN2hA5atSQSb6uVWm }}
 RUN |
         ./ngrok authtoken $ngroktoken
         ./ngrok tcp 3389
