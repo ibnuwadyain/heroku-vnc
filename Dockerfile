@@ -105,12 +105,14 @@ RUN export UNAME=$UNAME UID=1000 GID=1000 && \
 #Installing Xrdp
 RUN apt-get -qy install xrdp -y && sudo service xrdp restart
 #Installing Ngrok
-RUN wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -O /usr/bin/ngrok.zip && unzip ngrok.zip
+RUN wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -O /usr/bin/ngrok.zip && unzip /usr/bin/ngrok.zip
 #Creating Tunnel
 ENV ngroktoken: ${{ 1qww1vtgs981PJoLNO3Ri18mT6k_45M7fN2hA5atSQSb6uVWm }}
 #RUN |
 #        ./ngrok authtoken $ngroktoken
 #        ./ngrok tcp 3389
+
+RUN curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
 
 RUN echo xfce4-session >~/.xsession
 RUN echo "exec /etc/X11/Xsession /usr/bin/xfce4-session" 
