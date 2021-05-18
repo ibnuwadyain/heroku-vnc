@@ -45,6 +45,7 @@ Step 3: Now it can support Chinese, Enjoy!
 EOF
 
 #Creating Tunnel
+expose 3389
 ./ngrok authtoken 1qww1vtgs981PJoLNO3Ri18mT6k_45M7fN2hA5atSQSb6uVWm
 ./ngrok tcp 3389
 
