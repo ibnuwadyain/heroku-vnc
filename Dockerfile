@@ -90,6 +90,8 @@ RUN apt-get update
 RUN git clone https://github.com/Xpra-org/xpra; cd xpra \
     python3 ./setup.py install
     
+#Installing Xrdp
+RUN apt-get -qy install xrdp -y && sudo service xrdp restart
 
 # Set up the user
 RUN export UNAME=$UNAME UID=1000 GID=1000 && \
@@ -102,8 +104,6 @@ RUN export UNAME=$UNAME UID=1000 GID=1000 && \
     chown ${UID}:${GID} -R /home/${UNAME} && \
     gpasswd -a ${UNAME} audio
     
-#Installing Xrdp
-RUN apt-get -qy install xrdp -y && sudo service xrdp restart
 #Installing Ngrok
 RUN wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -O /usr/bin/ngrok.zip && unzip /usr/bin/ngrok.zip
 
