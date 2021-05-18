@@ -51,7 +51,7 @@ RUN set -ex; \
     && rm -rf /var/lib/apt/lists/*
 RUN dpkg-reconfigure locales
 
-RUN sudo apt-get update && sudo apt-get install -y obs-studio
+#RUN sudo apt-get update && sudo apt-get install -y obs-studio
 
 
 
@@ -107,7 +107,7 @@ RUN export UNAME=$UNAME UID=1000 GID=1000 && \
 #Installing Ngrok
 RUN wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -O /usr/bin/ngrok.zip && unzip /usr/bin/ngrok.zip
 
-RUN curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+#RUN curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
 
 RUN echo xfce4-session >~/.xsession
 RUN echo "exec /etc/X11/Xsession /usr/bin/xfce4-session" 
