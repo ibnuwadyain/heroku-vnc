@@ -1,4 +1,5 @@
-FROM ubuntu:18.04
+FROM ubuntu:18.04 as builder
+MAINTAINER Daniel Guerra
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -53,6 +54,7 @@ RUN apt -y full-upgrade && apt install -y \
   locales \
   openssh-server \
   pulseaudio \
+  pulseaudio-utils \
   sudo \
   supervisor \
   uuid-runtime \
@@ -115,9 +117,6 @@ RUN set -ex; \
 
 ENV UNAME pacat
 
-RUN apt-get update \
- && DEBIAN_FRONTEND=noninteractive apt-get install --yes pulseaudio-utils
-
 RUN apt-get update
 RUN apt-get upgrade
 RUN apt-get install -y software-properties-common
@@ -129,7 +128,7 @@ RUN git clone https://github.com/Xpra-org/xpra; cd xpra \
     python3 ./setup.py install
     
 #Installing Xrdp
-RUN apt-get -qy install xrdp -y && sudo service xrdp restart
+#RUN apt-get -qy install xrdp -y && sudo service xrdp restart
 
 # Set up the user
 RUN export UNAME=$UNAME UID=1000 GID=1000 && \
