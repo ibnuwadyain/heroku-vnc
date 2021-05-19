@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN set -ex; \
     apt-get update \
-    && apt-get install -y --no-install-recommends \
+    && apt-get install -y \
         dbus-x11 \
         expect \
         sudo \
@@ -15,7 +15,7 @@ RUN set -ex; \
 	apt-utils \
         net-tools \
         novnc \
-        xubuntu-desktop \
+        xfce4 \
 	socat \
         x11vnc \
 	xvfb \
