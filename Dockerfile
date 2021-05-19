@@ -37,7 +37,7 @@ RUN set -ex; \
 RUN dpkg-reconfigure locales
 
 #RUN sudo apt-get update && sudo apt-get install -y obs-studio
-
+#RUN sudo apt-get update && sudo apt-get install -y alsa alsa-tools
 
 
 COPY . /app
@@ -96,5 +96,7 @@ RUN wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -O /u
 
 #RUN echo xfce4-session >~/.xsession
 #RUN echo "exec /etc/X11/Xsession /usr/bin/xfce4-session" 
+
+EXPOSE 3389 22 9001
 
 CMD ["/app/run.sh"]
