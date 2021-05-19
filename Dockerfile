@@ -1,97 +1,42 @@
-FROM ubuntu:18.04 as builder
-MAINTAINER Daniel Guerra
+FROM ubuntu:18.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install packages
+#RUN echo 'deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse\ndeb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse\ndeb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse\ndeb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse\ndeb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse\ndeb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse\ndeb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse\ndeb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse\ndeb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse\ndeb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse\n' > /etc/apt/sources.list
 
-ENV DEBIAN_FRONTEND noninteractive
-RUN sed -i "s/# deb-src/deb-src/g" /etc/apt/sources.list
-RUN apt-get -y update
-RUN apt-get -yy upgrade
-ENV BUILD_DEPS="git autoconf pkg-config libssl-dev libpam0g-dev \
-    libx11-dev libxfixes-dev libxrandr-dev nasm xsltproc flex \
-    bison libxml2-dev dpkg-dev libcap-dev"
-RUN apt-get -yy install  sudo apt-utils software-properties-common $BUILD_DEPS
+RUN set -ex; \
+    apt-get update \
+    && apt-get install -y --no-install-recommends \
+        dbus-x11 \
+        expect \
+        sudo \
+        vim \
+        bash \
+	apt-utils \
+        net-tools \
+        novnc \
+        xubuntu-desktop \
+	socat \
+        x11vnc \
+	xvfb \
+        supervisor \
+        curl \
+        git \
+        wget \
+        g++ \
+	unzip \
+        ssh \
+	chromium-browser \
+        htop \
+        gnupg2 \
+	locales \
+	openssh-server \
+    && apt-get autoclean \
+    && apt-get autoremove \
+    && rm -rf /var/lib/apt/lists/*
+RUN dpkg-reconfigure locales
 
-
-# Build xrdp
-
-WORKDIR /tmp
-RUN apt-get source pulseaudio
-RUN apt-get build-dep -yy pulseaudio
-WORKDIR /tmp/pulseaudio-11.1
-RUN dpkg-buildpackage -rfakeroot -uc -b
-WORKDIR /tmp
-RUN git clone --branch devel --recursive https://github.com/neutrinolabs/xrdp.git
-WORKDIR /tmp/xrdp
-RUN ./bootstrap
-RUN ./configure
-RUN make
-RUN make install
-WORKDIR /tmp
-RUN  apt -yy install libpulse-dev
-RUN git clone --recursive https://github.com/neutrinolabs/pulseaudio-module-xrdp.git
-WORKDIR /tmp/pulseaudio-module-xrdp
-RUN ./bootstrap && ./configure PULSE_DIR=/tmp/pulseaudio-11.1
-RUN make
-RUN mkdir -p /tmp/so
-RUN cp src/.libs/*.so /tmp/so
-
-FROM ubuntu:18.04
-ARG ADDITIONAL_PACKAGES=""
-ENV ADDITIONAL_PACKAGES=${ADDITIONAL_PACKAGES}
-ENV DEBIAN_FRONTEND noninteractive
-RUN apt update && apt install -y software-properties-common
-RUN add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner" && apt update
-RUN apt -y full-upgrade && apt install -y \
-  adobe-flashplugin \
-  browser-plugin-freshplayer-pepperflash \
-  ca-certificates \
-  crudini \
-  firefox \
-  less \
-  locales \
-  openssh-server \
-  pulseaudio \
-  pulseaudio-utils \
-  sudo \
-  supervisor \
-  uuid-runtime \
-  vim \
-  novnc \
-  chromium-browser \
-  bash \
-  ssh \
-  socat \
-  net-tools \
-  dbus-x11 \
-  vlc \
-  wget \
-  xauth \
-  xautolock \
-  xfce4 \
-  xfce4-clipman-plugin \
-  xfce4-cpugraph-plugin \
-  xfce4-netload-plugin \
-  xfce4-screenshooter \
-  xfce4-taskmanager \
-  xfce4-terminal \
-  xfce4-xkb-plugin \
-  xorgxrdp \
-  xprintidle \
-  xrdp \
-  $ADDITIONAL_PACKAGES && \
-  apt-get remove -yy xscreensaver && \
-  apt-get autoremove -yy && \
-  rm -rf /var/cache/apt /var/lib/apt/lists && \
-  mkdir -p /var/lib/xrdp-pulseaudio-installer
-COPY --from=builder /tmp/so/module-xrdp-source.so /var/lib/xrdp-pulseaudio-installer
-COPY --from=builder /tmp/so/module-xrdp-sink.so /var/lib/xrdp-pulseaudio-installer
-ADD bin /usr/bin
-ADD etc /etc
-ADD autostart /etc/xdg/autostart
-#ADD pulse /usr/lib/pulse-10.0/modules/
+#RUN sudo apt-get update && sudo apt-get install -y obs-studio
 
 
 
@@ -117,6 +62,9 @@ RUN set -ex; \
 
 ENV UNAME pacat
 
+RUN apt-get update \
+ && DEBIAN_FRONTEND=noninteractive apt-get install --yes pulseaudio-utils
+
 RUN apt-get update
 RUN apt-get upgrade
 RUN apt-get install -y software-properties-common
@@ -128,7 +76,7 @@ RUN git clone https://github.com/Xpra-org/xpra; cd xpra \
     python3 ./setup.py install
     
 #Installing Xrdp
-#RUN apt-get -qy install xrdp -y && sudo service xrdp restart
+RUN apt-get -qy install xrdp -y && sudo service xrdp restart
 
 # Set up the user
 RUN export UNAME=$UNAME UID=1000 GID=1000 && \
@@ -146,9 +94,7 @@ RUN wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -O /u
 
 #RUN curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
 
-RUN echo xfce4-session >~/.xsession
-RUN echo "exec /etc/X11/Xsession /usr/bin/xfce4-session" 
-
-EXPOSE 3389 22 9001
+#RUN echo xfce4-session >~/.xsession
+#RUN echo "exec /etc/X11/Xsession /usr/bin/xfce4-session" 
 
 CMD ["/app/run.sh"]
