@@ -38,7 +38,7 @@ RUN set -ex; \
 RUN dpkg-reconfigure locales
 
 #RUN sudo apt-get update && sudo apt-get install -y obs-studio
-RUN sudo apt-get update && sudo apt-get install -y alsa alsa-tools
+#RUN sudo apt-get update && sudo apt-get install -y alsa alsa-tools
 
 
 COPY . /app
