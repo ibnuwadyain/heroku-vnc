@@ -26,7 +26,7 @@ RUN set -ex; \
 	unzip \
 	xterm \
 	ufw \
-	ip \
+	iproute2 \
         ssh \
 	chromium-browser \
         terminator \
