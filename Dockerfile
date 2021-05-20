@@ -74,7 +74,7 @@ RUN apt-get install -y x2goserver x2goserver-xsession
 RUN apt-get update
 RUN wget -q https://xpra.org/gpg.asc -O- | sudo apt-key add -
 RUN echo "deb [trusted=yes] https://xpra.org/ bionic main"  >> /etc/apt/sources.list
-RUN cd /etc/apt/sources.list.d;wget $REPOFILE
+#RUN cd /etc/apt/sources.list.d;wget $REPOFILE
 RUN apt update;apt install xpra
 
 #install xrdp dependency pakages
