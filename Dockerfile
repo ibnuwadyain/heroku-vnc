@@ -61,8 +61,7 @@ RUN set -ex; \
 
 ENV UNAME pacat
 
-RUN apt-get update \
- && DEBIAN_FRONTEND=noninteractive apt-get install --yes pulseaudio-utils
+#RUN apt-get update \ && DEBIAN_FRONTEND=noninteractive apt-get install --yes pulseaudio-utils
 
 RUN apt-get update
 RUN apt-get upgrade
@@ -73,7 +72,11 @@ RUN apt-get install -y x2goserver x2goserver-xsession
 RUN apt-get update
 RUN git clone https://github.com/Xpra-org/xpra; cd xpra \
     python3 ./setup.py install
-    
+
+#install xrdp dependency pakages
+RUN apt-get update \ && DEBIAN_FRONTEND=noninteractive apt-get -y install xserver-xorg-core
+RUN apt-get update \ && DEBIAN_FRONTEND=noninteractive apt-get -y install xserver-xorg-input-all
+
 #Installing Xrdp
 RUN apt-get -qy install xrdp -y && sudo service xrdp restart
 
