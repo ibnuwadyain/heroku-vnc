@@ -45,7 +45,6 @@ RUN chmod +x /app/run.sh
 RUN chmod +x /app/expect_vnc.sh
 #RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list
 RUN echo "deb [trusted=yes] http://deb.anydesk.com/ all main"  >> /etc/apt/sources.list
-#RUN echo "deb [trusted=yes] https://xpra.org/ bionic main"  >> /etc/apt/sources.list
 RUN wget --no-check-certificate https://dl.google.com/linux/linux_signing_key.pub -P /app
 RUN wget --no-check-certificate -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY -O /app/anydesk.key
 #RUN wget --no-check-certificate -q https://xpra.org/gpg.asc -O- | apt-key add -
@@ -56,7 +55,6 @@ RUN set -ex; \
     && apt-get install -y --no-install-recommends \
 #        google-chrome-stable \
 	anydesk
-#        xpra
 
 
 ENV UNAME pacat
@@ -69,9 +67,13 @@ RUN apt-get install -y software-properties-common
 RUN apt-get update
 RUN add-apt-repository ppa:x2go/stable
 RUN apt-get install -y x2goserver x2goserver-xsession
+
+#install xpra
 RUN apt-get update
-RUN git clone https://github.com/Xpra-org/xpra; cd xpra \
-    python3 ./setup.py install
+RUN wget -q https://xpra.org/gpg.asc -O- | sudo apt-key add -
+RUN echo "deb [trusted=yes] https://xpra.org/ bionic main"  >> /etc/apt/sources.list
+RUN cd /etc/apt/sources.list.d;wget $REPOFILE
+RUN apt update;apt install xpra
 
 #install xrdp dependency pakages
 RUN apt-get update \ && DEBIAN_FRONTEND=noninteractive apt-get -y install xserver-xorg-core
