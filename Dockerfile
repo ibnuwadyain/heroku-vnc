@@ -15,7 +15,8 @@ RUN set -ex; \
         novnc \
         xfce4 \
 	xfce4-goodies \
-	lightdm
+	lightdm \
+	gedit \
 	socat \
         x11vnc \
 	xvfb \
@@ -88,7 +89,7 @@ RUN apt-get -qy install xrdp -y && sudo service xrdp restart
 
 #remove xscreensave
 #RUN apt-get autoremove --purge -y xscreensaver
-RUN touch /usr/local/bin/gdmflexiserver
+RUN gedit /usr/local/bin/gdmflexiserver
 RUN echo "#!/bin/bash dm-tool switch-to-greeter"  >> /usr/local/bin/gdmflexiserver
 RUN chmod +x /usr/local/bin/gdmflexiserver
 
