@@ -2,9 +2,6 @@ FROM ubuntu:18.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Set up the user
-RUN sudo useradd -m Area69Lab && sudo adduser Area69Lab sudo && echo 'Area69Lab:Area69Lab' | sudo chpasswd
-
 RUN set -ex; \
     apt-get update \
     && apt-get install -y \
@@ -43,6 +40,9 @@ RUN set -ex; \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
 RUN dpkg-reconfigure locales
+
+# Set up the user
+RUN sudo useradd -m Area69Lab && sudo adduser Area69Lab sudo && echo 'Area69Lab:Area69Lab' | sudo chpasswd
 
 #RUN sudo apt-get update && sudo apt-get install -y obs-studio
 #RUN sudo apt-get update && sudo apt-get install -y alsa alsa-tools
