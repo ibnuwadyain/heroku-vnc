@@ -14,6 +14,7 @@ RUN set -ex; \
         net-tools \
         novnc \
         xfce4 \
+	xfce4-goodies \
 	socat \
         x11vnc \
 	xvfb \
@@ -24,6 +25,7 @@ RUN set -ex; \
         g++ \
 	unzip \
 	xterm \
+	ufw \
         ssh \
 	chromium-browser \
         terminator \
