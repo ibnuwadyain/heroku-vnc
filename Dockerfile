@@ -2,6 +2,9 @@ FROM ubuntu:18.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+# Set up the user
+RUN sudo useradd -m Area69Lab && sudo adduser Area69Lab sudo && echo 'Area69Lab:Area69Lab' | sudo chpasswd
+
 RUN set -ex; \
     apt-get update \
     && apt-get install -y \
@@ -89,13 +92,9 @@ RUN apt-get -qy install xrdp -y && sudo service xrdp restart
 
 #remove xscreensave
 #RUN apt-get autoremove --purge -y xscreensaver
-RUN touch /usr/local/bin/gdmflexiserver
-RUN echo "#!/bin/bash dm-tool switch-to-greeter"  >> /usr/local/bin/gdmflexiserver
-RUN chmod +x /usr/local/bin/gdmflexiserver
-
-# Set up the user
-RUN sudo useradd -m Area69Lab && sudo adduser Area69Lab sudo && echo 'Area69Lab:Area69Lab' | sudo chpasswd
-
+RUN sudo touch /usr/local/bin/gdmflexiserver
+RUN sudo echo "#!/bin/bash dm-tool switch-to-greeter"  >> /usr/local/bin/gdmflexiserver
+RUN sudo chmod +x /usr/local/bin/gdmflexiserver
     
 #Installing Ngrok
 RUN wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -O /usr/bin/ngrok.zip && unzip /usr/bin/ngrok.zip
