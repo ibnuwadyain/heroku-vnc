@@ -78,8 +78,8 @@ RUN echo "deb [trusted=yes] https://xpra.org/ bionic main"  >> /etc/apt/sources.
 RUN apt update;apt install -y xpra
 
 #install xrdp dependency pakages
-RUN apt-get update \ && DEBIAN_FRONTEND=noninteractive apt-get -y install xserver-xorg-core
-RUN apt-get update \ && DEBIAN_FRONTEND=noninteractive apt-get -y install xserver-xorg-input-all
+RUN apt-get update \ && DEBIAN_FRONTEND=noninteractive apt-get install -y xserver-xorg-core
+RUN apt-get update \ && DEBIAN_FRONTEND=noninteractive apt-get install -y xserver-xorg-input-all
 
 #Installing Xrdp
 RUN apt-get -qy install xrdp -y && sudo service xrdp restart
