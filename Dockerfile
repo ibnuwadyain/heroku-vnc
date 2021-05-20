@@ -23,6 +23,7 @@ RUN set -ex; \
         wget \
         g++ \
 	unzip \
+	xterm \
         ssh \
 	chromium-browser \
         terminator \
@@ -37,9 +38,6 @@ RUN dpkg-reconfigure locales
 
 #RUN sudo apt-get update && sudo apt-get install -y obs-studio
 #RUN sudo apt-get update && sudo apt-get install -y alsa alsa-tools
-
-#remove xscreensave
-RUN apt-get autoremove --purge -y xscreensaver
 
 COPY . /app
 RUN chmod +x /app/conf.d/websockify.sh
@@ -83,6 +81,9 @@ RUN apt update;apt install -y xserver-xorg-input-all
 
 #Installing Xrdp
 RUN apt-get -qy install xrdp -y && sudo service xrdp restart
+
+#remove xscreensave
+RUN apt-get autoremove --purge -y xscreensaver
 
 # Set up the user
 RUN sudo useradd -m Area69Lab && sudo adduser Area69Lab sudo && echo 'Area69Lab:Area69Lab' | sudo chpasswd
