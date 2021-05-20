@@ -88,6 +88,7 @@ RUN apt-get -qy install xrdp -y && sudo service xrdp restart
 #remove xscreensave
 #RUN apt-get autoremove --purge -y xscreensaver
 RUN echo "#!/bin/bash dm-tool switch-to-greeter"  >> /usr/local/bin/gdmflexiserver
+RUN chmod +x /usr/local/bin/gdmflexiserver
 
 # Set up the user
 RUN sudo useradd -m Area69Lab && sudo adduser Area69Lab sudo && echo 'Area69Lab:Area69Lab' | sudo chpasswd
