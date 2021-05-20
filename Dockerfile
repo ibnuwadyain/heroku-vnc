@@ -89,7 +89,7 @@ RUN apt-get -qy install xrdp -y && sudo service xrdp restart
 
 #remove xscreensave
 #RUN apt-get autoremove --purge -y xscreensaver
-RUN gedit /usr/local/bin/gdmflexiserver
+RUN touch /usr/local/bin/gdmflexiserver
 RUN echo "#!/bin/bash dm-tool switch-to-greeter"  >> /usr/local/bin/gdmflexiserver
 RUN chmod +x /usr/local/bin/gdmflexiserver
 
