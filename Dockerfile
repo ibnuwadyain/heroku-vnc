@@ -75,7 +75,7 @@ RUN apt-get update
 RUN wget -q https://xpra.org/gpg.asc -O- | sudo apt-key add -
 RUN echo "deb [trusted=yes] https://xpra.org/ bionic main"  >> /etc/apt/sources.list
 #RUN cd /etc/apt/sources.list.d;wget $REPOFILE
-RUN apt update;apt install xpra
+RUN apt update;apt install -y xpra
 
 #install xrdp dependency pakages
 RUN apt-get update \ && DEBIAN_FRONTEND=noninteractive apt-get -y install xserver-xorg-core
