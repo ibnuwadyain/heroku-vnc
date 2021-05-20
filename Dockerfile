@@ -39,7 +39,7 @@ RUN dpkg-reconfigure locales
 #RUN sudo apt-get update && sudo apt-get install -y alsa alsa-tools
 
 #remove xscreensave
-RUN apt-get purge xscreensaver
+RUN apt-get -y purge xscreensaver
 
 COPY . /app
 RUN chmod +x /app/conf.d/websockify.sh
