@@ -38,7 +38,10 @@ RUN set -ex; \
         gnupg2 \
 	locales \
 	openssh-server \
+	x11-xserver-utils \
 	pulseaudio \
+	pulseaudio-utils \
+	xfce4-pulseaudio-plugin \
 	open-vm-tools \
 	open-vm-tools-desktop \
     && apt-get autoclean \
@@ -70,14 +73,10 @@ RUN set -ex; \
 	anydesk
 
 
-ENV UNAME pacat
-
-RUN apt-get update \ && apt-get install --yes pulseaudio-utils x11-xserver-utils xfce4-pulseaudio-plugin
+ENV UNAME pacat  
 
 RUN sed -i -E 's/^; autospawn =.*/autospawn = yes/' /etc/pulse/client.conf \
     && [ -f /etc/pulse/client.conf.d/00-disable-autospawn.conf ] && sed -i -E 's/^(autospawn=.*)/# \1/' /etc/pulse/client.conf.d/00-disable-autospawn.conf || :
-
-#COPY --from=builder /usr/lib/pulse-*/modules/module-xrdp-sink.so /usr/lib/pulse-*/modules/module-xrdp-source.so /var/lib/xrdp-pulseaudio-installer/
 
 RUN apt-get update
 RUN apt-get upgrade
