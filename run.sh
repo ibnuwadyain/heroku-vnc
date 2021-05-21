@@ -1,4 +1,7 @@
 #!/bin/bash
+
+su - Area69LAB
+
 set -ex
 mkdir -p ~/.vnc ~/.config/xfce4
 tar -xvf /app/panel.tar -C ~/.config/xfce4
