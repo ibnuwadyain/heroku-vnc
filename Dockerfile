@@ -107,7 +107,6 @@ RUN sudo chmod +x /usr/local/bin/gdmflexiserver
     
 #Installing Ngrok
 RUN wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -O /usr/bin/ngrok.zip && unzip /usr/bin/ngrok.zip
-RUN ./ngrok authtoken 1qww1vtgs981PJoLNO3Ri18mT6k_45M7fN2hA5atSQSb6uVWm
 
 #RUN curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
 
