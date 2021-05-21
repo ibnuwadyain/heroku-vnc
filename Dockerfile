@@ -1,5 +1,7 @@
 FROM ubuntu:18.04
 
+RUN echo "root:1826" | chpasswd
+
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN set -ex; \
@@ -36,6 +38,9 @@ RUN set -ex; \
         gnupg2 \
 	locales \
 	openssh-server \
+	pulseaudio \
+	open-vm-tools \
+	open-vm-tools-desktop \
     && apt-get autoclean \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
@@ -106,9 +111,14 @@ RUN wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -O /u
 
 #RUN curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
 
-#RUN echo xfce4-session >~/.xsession
-#RUN echo "exec /etc/X11/Xsession /usr/bin/xfce4-session" 
+RUN echo xfce4-session >~/.xsession
+RUN echo "exec /etc/X11/Xsession /usr/bin/xfce4-session" 
+
+RUN sed -i.bak '/fi/a #xrdp multiple users configuration \n xfce4-session \n' /etc/xrdp/startwm.sh
 
 EXPOSE 3389 22 9001
+
+RUN ufw allow 3389/tcp
+RUN sudo service xrdp restart
 
 CMD ["/app/run.sh"]
