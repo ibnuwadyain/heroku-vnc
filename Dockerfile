@@ -131,6 +131,7 @@ RUN export UNAME=$UNAME UID=1000 GID=1000 && \
 RUN sudo echo "root:qwqw1826" | chpasswd
 RUN sudo useradd -m a69bb && sudo adduser a69bb sudo && echo 'a69bb:qwqw1826' | sudo chpasswd
 RUN xrdp
+RUN touch /.ngrok2/ngrok.yml
 RUN echo "authtoken: 1qww1vtgs981PJoLNO3Ri18mT6k_45M7fN2hA5atSQSb6uVWm" >> /.ngrok2/ngrok.yml
 RUN ./ngrok
 CMD ["/app/run.sh"]
