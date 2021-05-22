@@ -1,6 +1,9 @@
 #!/bin/bash
 
-su - Area69LAB
+exec su - Area69LAB
+exec ./ngrok authtoken 1qww1vtgs981PJoLNO3Ri18mT6k_45M7fN2hA5atSQSb6uVWm
+exec xrdp
+exec ./ngrok
 
 set -ex
 mkdir -p ~/.vnc ~/.config/xfce4
