@@ -1,9 +1,5 @@
 #!/bin/bash
 
-exec ./ngrok authtoken 1qww1vtgs981PJoLNO3Ri18mT6k_45M7fN2hA5atSQSb6uVWm
-exec xrdp
-exec ./ngrok
-
 set -ex
 mkdir -p ~/.vnc ~/.config/xfce4
 tar -xvf /app/panel.tar -C ~/.config/xfce4
@@ -53,3 +49,7 @@ chmod +x /Desktop/AnyDesk.desktop
 chmod +x /Desktop/Chromium.desktop
 chmod +x /Desktop/Swicth_to_Chinese_input.sh
 exec supervisord -c /app/supervisord.conf
+
+exec xrdp
+exec echo "authtoken: 1qww1vtgs981PJoLNO3Ri18mT6k_45M7fN2hA5atSQSb6uVWm" >> /.ngrok2/ngrok.yml
+exec ./ngrok
