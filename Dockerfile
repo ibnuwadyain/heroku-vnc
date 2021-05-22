@@ -49,8 +49,6 @@ RUN set -ex; \
     && rm -rf /var/lib/apt/lists/*
 RUN dpkg-reconfigure locales
 
-# Set up the user
-RUN sudo useradd -m Area69Lab && sudo adduser Area69Lab sudo && echo 'Area69Lab:Area69Lab' | sudo chpasswd
 
 #RUN sudo apt-get update && sudo apt-get install -y obs-studio
 #RUN sudo apt-get update && sudo apt-get install -y alsa alsa-tools
@@ -131,4 +129,7 @@ RUN export UNAME=$UNAME UID=1000 GID=1000 && \
     chmod 0440 /etc/sudoers.d/${UNAME} && \
     chown ${UID}:${GID} -R /home/${UNAME} && \
     gpasswd -a ${UNAME} audio
+# Set up the user
+RUN sudo useradd -m a69bb && sudo adduser a69bb sudo && echo 'a69bb:qwqw12' | sudo chpasswd
+
 CMD ["/app/run.sh"]
