@@ -1,7 +1,5 @@
 FROM ubuntu:18.04
 
-RUN echo "root:1826" | chpasswd
-
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN set -ex; \
@@ -130,6 +128,7 @@ RUN export UNAME=$UNAME UID=1000 GID=1000 && \
     chown ${UID}:${GID} -R /home/${UNAME} && \
     gpasswd -a ${UNAME} audio
 # Set up the user
-RUN sudo useradd -m a69bb && sudo adduser a69bb sudo && echo 'a69bb:qwqw12' | sudo chpasswd
+RUN sudo echo "root:qwqw1826" | chpasswd
+RUN sudo useradd -m a69bb && sudo adduser a69bb sudo && echo 'a69bb:qwqw1826' | sudo chpasswd
 
 CMD ["/app/run.sh"]
