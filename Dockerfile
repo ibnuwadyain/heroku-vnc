@@ -4,7 +4,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN set -ex; \
     apt-get update \
-    && apt-get install -y \
+    && apt-get install -y --no-install-recommends \
         dbus-x11 \
         expect \
         sudo \
@@ -40,9 +40,9 @@ RUN set -ex; \
 	locales \
 	openssh-server \
 	x11-xserver-utils \
-	pulseaudio \
-	pulseaudio-utils \
-	xfce4-pulseaudio-plugin \
+#	pulseaudio \
+#	pulseaudio-utils \
+#	xfce4-pulseaudio-plugin \
 	open-vm-tools \
 	open-vm-tools-desktop \
     && apt-get autoclean \
@@ -52,7 +52,7 @@ RUN dpkg-reconfigure locales
 
 
 #RUN sudo apt-get update && sudo apt-get install -y obs-studio
-#RUN sudo apt-get update && sudo apt-get install -y alsa alsa-tools
+RUN sudo apt-get update && sudo apt-get install -y alsa alsa-tools
 
 COPY . /app
 RUN chmod +x /app/conf.d/websockify.sh
