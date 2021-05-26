@@ -98,7 +98,7 @@ RUN sed -i -E 's/^; autospawn =.*/autospawn = yes/' /etc/pulse/client.conf \
     && [ -f /etc/pulse/client.conf.d/00-disable-autospawn.conf ] && sed -i -E 's/^(autospawn=.*)/# \1/' /etc/pulse/client.conf.d/00-disable-autospawn.conf || :
 
 RUN apt-get update
-RUN apt-get upgrade
+RUN apt-get upgrade -y
 RUN apt-get install -y software-properties-common
 RUN apt-get update
 RUN add-apt-repository ppa:x2go/stable
@@ -117,12 +117,6 @@ RUN apt update;apt install -y xserver-xorg-input-all
 
 #Installing Xrdp
 RUN apt-get -qy install xrdp -y && sudo service xrdp restart
-
-#remove xscreensave
-#RUN apt-get autoremove --purge -y xscreensaver
-RUN sudo touch /usr/local/bin/gdmflexiserver
-RUN sudo echo "#!/bin/bash dm-tool switch-to-greeter"  >> /usr/local/bin/gdmflexiserver
-RUN sudo chmod +x /usr/local/bin/gdmflexiserver
     
 #Installing Ngrok
 RUN wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -O /usr/bin/ngrok.zip && unzip /usr/bin/ngrok.zip
@@ -150,6 +144,13 @@ RUN export UNAME=$UNAME UID=1000 GID=1000 && \
     chmod 0440 /etc/sudoers.d/${UNAME} && \
     chown ${UID}:${GID} -R /home/${UNAME} && \
     gpasswd -a ${UNAME} audio
+
+#remove xscreensaver
+RUN apt-get autoremove --purge -y xscreensaver
+#RUN sudo touch /usr/local/bin/gdmflexiserver
+#RUN sudo echo "#!/bin/bash dm-tool switch-to-greeter"  >> /usr/local/bin/gdmflexiserver
+#RUN sudo chmod +x /usr/local/bin/gdmflexiserver
+
 # Set up the user
 RUN sudo echo "root:qwqw1826" | chpasswd
 RUN sudo useradd -m a69bb && sudo adduser a69bb sudo && echo 'a69bb:qwqw1826' | sudo chpasswd
