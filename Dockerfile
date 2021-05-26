@@ -4,7 +4,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN set -ex; \
     apt-get update \
-    && apt-get install -y --no-install-recommends \
+    && apt-get install -y \
         dbus-x11 \
         expect \
         sudo \
@@ -14,7 +14,7 @@ RUN set -ex; \
 	apt-utils \
         net-tools \
         novnc \
-        lxqt \
+        lxqt-core \
         sddm \
 #       xfce4 \
 #	xfce4-goodies \
@@ -139,4 +139,5 @@ RUN mkdir /.ngrok2
 RUN echo > /.ngrok2/ngrok.yml
 RUN echo "authtoken: 1qww1vtgs981PJoLNO3Ri18mT6k_45M7fN2hA5atSQSb6uVWm" >> /.ngrok2/ngrok.yml
 RUN ./ngrok
+
 CMD ["/app/run.sh"]
