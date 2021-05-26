@@ -14,11 +14,11 @@ RUN set -ex; \
 	apt-utils \
         net-tools \
         novnc \
-        lxqt-core \
+        lxde \
         sddm \
 #       xfce4 \
 #	xfce4-goodies \
-	lightdm \
+#	lightdm \
 	gedit \
 	socat \
         x11vnc \
