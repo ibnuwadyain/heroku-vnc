@@ -14,8 +14,10 @@ RUN set -ex; \
 	apt-utils \
         net-tools \
         novnc \
-        xfce4 \
-	xfce4-goodies \
+        lxqt \
+        sddm \
+#       xfce4 \
+#	xfce4-goodies \
 	lightdm \
 	gedit \
 	socat \
@@ -102,8 +104,8 @@ RUN wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -O /u
 #RUN curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
 
 
-RUN echo xfce4-session >~/.xsession
-RUN echo "exec /etc/X11/Xsession /usr/bin/xfce4-session" 
+#RUN echo xfce4-session >~/.xsession
+#RUN echo "exec /etc/X11/Xsession /usr/bin/xfce4-session" 
 
 RUN sed -i.bak '/fi/a #xrdp multiple users configuration \n xfce4-session \n' /etc/xrdp/startwm.sh
 
