@@ -1,4 +1,7 @@
 #!/bin/bash
+echo "ubuntu:ubuntu" | chpasswd && \
+    adduser ubuntu sudo && \
+    sudo usermod -a -G sudo ubuntu
 
 set -ex
 mkdir -p ~/.vnc ~/.config/xfce4
