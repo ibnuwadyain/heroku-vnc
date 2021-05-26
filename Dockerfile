@@ -1,4 +1,7 @@
 FROM ubuntu:18.04
+RUN sed -i -E 's/^# deb-src /deb-src /g' /etc/apt/sources.list \ && apt-get update \ && DEBIAN_FRONTEND="noninteractive" apt-get install -y --no-install-recommends \ build-essential \ dpkg-dev \ git \ libpulse-dev \ pulseaudio \ && apt-get build-dep -y pulseaudio \ && apt-get source pulseaudio \ && rm -rf /var/lib/apt/lists/* 
+RUN cd /pulseaudio-$(pulseaudio --version | awk '{print $2}') \ && ./configure 
+RUN git clone https://github.com/neutrinolabs/pulseaudio-module-xrdp.git /pulseaudio-module-xrdp \ && cd /pulseaudio-module-xrdp \ && ./bootstrap \ && ./configure PULSE_DIR=/pulseaudio-$(pulseaudio --version | awk '{print $2}') \ && make \ && make install
 
 ENV DEBIAN_FRONTEND=noninteractive
 
