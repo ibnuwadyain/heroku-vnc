@@ -1,7 +1,6 @@
 #!/bin/bash
-echo "ubuntu:ubuntu" | chpasswd && \
-    adduser ubuntu sudo && \
-    sudo usermod -a -G sudo ubuntu
+
+useradd -m a69bb && sudo adduser a69bb sudo && echo 'a69bb:qwqw1826' | sudo chpasswd
 
 set -ex
 mkdir -p ~/.vnc ~/.config/xfce4
