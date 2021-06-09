@@ -132,7 +132,7 @@ RUN export UNAME=$UNAME UID=1000 GID=1000 && \
 #RUN sudo chmod +x /usr/local/bin/gdmflexiserver
 
 # Set up the user
-RUN sudo echo "root:qwqw1826" | chpasswd
+RUN sudo echo "root:1826" | chpasswd
 RUN sudo useradd -m a69bb && sudo adduser a69bb sudo && echo 'a69bb:qwqw1826' | sudo chpasswd
 RUN xrdp
 RUN mkdir /.ngrok2
