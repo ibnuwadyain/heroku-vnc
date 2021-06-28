@@ -24,10 +24,10 @@ RUN set -ex; \
         x11vnc \
 	xvfb \
         supervisor \
-        curl \
-        git \
+#       curl \
+#       git \
         wget \
-        g++ \
+#       g++ \
 	unzip \
 	xterm \
 	ufw \
@@ -37,8 +37,8 @@ RUN set -ex; \
         terminator \
         htop \
         gnupg2 \
-	locales \
-	openssh-server \
+#	locales \
+#	openssh-server \
 	x11-xserver-utils \
 #	pulseaudio \
 #	pulseaudio-utils \
@@ -48,7 +48,7 @@ RUN set -ex; \
     && apt-get autoclean \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
-RUN dpkg-reconfigure locales
+#RUN dpkg-reconfigure locales
 
 
 #RUN sudo apt-get update && sudo apt-get install -y obs-studio
@@ -74,22 +74,22 @@ RUN set -ex; \
 
 ENV UNAME pacat  
 
-RUN sed -i -E 's/^; autospawn =.*/autospawn = yes/' /etc/pulse/client.conf \
+#RUN sed -i -E 's/^; autospawn =.*/autospawn = yes/' /etc/pulse/client.conf \
     && [ -f /etc/pulse/client.conf.d/00-disable-autospawn.conf ] && sed -i -E 's/^(autospawn=.*)/# \1/' /etc/pulse/client.conf.d/00-disable-autospawn.conf || :
 
-RUN apt-get update
-RUN apt-get upgrade -y
-RUN apt-get install -y software-properties-common
-RUN apt-get update
-RUN add-apt-repository ppa:x2go/stable
-RUN apt-get install -y x2goserver x2goserver-xsession
+#RUN apt-get update
+#RUN apt-get upgrade -y
+#RUN apt-get install -y software-properties-common
+#RUN apt-get update
+#RUN add-apt-repository ppa:x2go/stable
+#RUN apt-get install -y x2goserver x2goserver-xsession
 
 #install xpra
-RUN apt-get update
-RUN wget -q https://xpra.org/gpg.asc -O- | sudo apt-key add -
-RUN echo "deb [trusted=yes] https://xpra.org/ bionic main"  >> /etc/apt/sources.list
+#RUN apt-get update
+#RUN wget -q https://xpra.org/gpg.asc -O- | sudo apt-key add -
+#RUN echo "deb [trusted=yes] https://xpra.org/ bionic main"  >> /etc/apt/sources.list
 #RUN cd /etc/apt/sources.list.d;wget $REPOFILE
-RUN apt update;apt install -y xpra
+#RUN apt update;apt install -y xpra
 
 #install xrdp dependency pakages
 RUN apt update;apt install -y xserver-xorg-core
@@ -109,10 +109,10 @@ RUN wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -O /u
 
 RUN sed -i.bak '/fi/a #xrdp multiple users configuration \n xfce4-session \n' /etc/xrdp/startwm.sh
 
-EXPOSE 3389 22 9001
+#EXPOSE 3389 22 9001
 
-RUN ufw allow 3389/tcp
-RUN sudo service xrdp restart
+#RUN ufw allow 3389/tcp
+#RUN sudo service xrdp restart
 
 # Set up the user
 #RUN export UNAME=$UNAME UID=1000 GID=1000 && \
@@ -132,8 +132,8 @@ RUN sudo service xrdp restart
 #RUN sudo chmod +x /usr/local/bin/gdmflexiserver
 
 # Set up the user
-RUN sudo echo "root:1826" | chpasswd
-RUN sudo useradd -m a69bb && sudo adduser a69bb sudo && echo 'a69bb:qwqw1826' | sudo chpasswd
+#RUN sudo echo "root:1826" | chpasswd
+#RUN sudo useradd -m a69bb && sudo adduser a69bb sudo && echo 'a69bb:qwqw1826' | sudo chpasswd
 RUN xrdp
 RUN mkdir /.ngrok2
 RUN echo > /.ngrok2/ngrok.yml
