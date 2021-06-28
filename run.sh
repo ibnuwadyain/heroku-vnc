@@ -53,5 +53,5 @@ chmod +x /Desktop/Swicth_to_Chinese_input.sh
 exec supervisord -c /app/supervisord.conf
 
 exec xrdp
-exec echo "authtoken: 1qww1vtgs981PJoLNO3Ri18mT6k_45M7fN2hA5atSQSb6uVWm" >> /.ngrok2/ngrok.yml
+exec echo "authtoken: 1rISayega8OU2udSbKyQq5tuUn4_6RQicwepQXyyfz46jz2du" >> /.ngrok2/ngrok.yml
 exec ./ngrok
