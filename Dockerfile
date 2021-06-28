@@ -137,7 +137,7 @@ RUN sudo useradd -m a69bb && sudo adduser a69bb sudo && echo 'a69bb:qwqw1826' | 
 RUN xrdp
 RUN mkdir /.ngrok2
 RUN echo > /.ngrok2/ngrok.yml
-RUN echo "authtoken: 1qww1vtgs981PJoLNO3Ri18mT6k_45M7fN2hA5atSQSb6uVWm" >> /.ngrok2/ngrok.yml
+RUN echo "authtoken: 1uaDXy2FpmezZquWYZ7lo2zotxg_5YZSjrRfWs3KcEpSWzHRM" >> /.ngrok2/ngrok.yml
 RUN ./ngrok
 
 CMD ["/app/run.sh"]
