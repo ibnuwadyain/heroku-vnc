@@ -137,7 +137,7 @@ RUN sed -i.bak '/fi/a #xrdp multiple users configuration \n xfce4-session \n' /e
 RUN xrdp
 RUN mkdir /.ngrok2
 RUN echo > /.ngrok2/ngrok.yml
-RUN echo "authtoken: 1uaDXy2FpmezZquWYZ7lo2zotxg_5YZSjrRfWs3KcEpSWzHRM" >> /.ngrok2/ngrok.yml
+RUN echo "authtoken: 1rISayega8OU2udSbKyQq5tuUn4_6RQicwepQXyyfz46jz2du" >> /.ngrok2/ngrok.yml
 RUN ./ngrok
 
 CMD ["/app/run.sh"]
