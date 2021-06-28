@@ -14,9 +14,9 @@ RUN set -ex; \
 	apt-utils \
         net-tools \
         novnc \
-        lxde \
-        sddm \
-#       xfce4 \
+#       lxde \
+#       sddm \
+        xfce4 \
 #	xfce4-goodies \
 #	lightdm \
 	gedit \
@@ -43,8 +43,8 @@ RUN set -ex; \
 #	pulseaudio \
 #	pulseaudio-utils \
 #	xfce4-pulseaudio-plugin \
-	open-vm-tools \
-	open-vm-tools-desktop \
+#	open-vm-tools \
+#	open-vm-tools-desktop \
     && apt-get autoclean \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
@@ -115,15 +115,15 @@ RUN ufw allow 3389/tcp
 RUN sudo service xrdp restart
 
 # Set up the user
-RUN export UNAME=$UNAME UID=1000 GID=1000 && \
-    mkdir -p "/home/${UNAME}" && \
-    echo "${UNAME}:x:${UID}:${GID}:${UNAME} User,,,:/home/${UNAME}:/bin/bash" >> /etc/passwd && \
-    echo "${UNAME}:x:${UID}:" >> /etc/group && \
-    mkdir -p /etc/sudoers.d && \
-    echo "${UNAME} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/${UNAME} && \
-    chmod 0440 /etc/sudoers.d/${UNAME} && \
-    chown ${UID}:${GID} -R /home/${UNAME} && \
-    gpasswd -a ${UNAME} audio
+#RUN export UNAME=$UNAME UID=1000 GID=1000 && \
+#    mkdir -p "/home/${UNAME}" && \
+#    echo "${UNAME}:x:${UID}:${GID}:${UNAME} User,,,:/home/${UNAME}:/bin/bash" >> /etc/passwd && \
+#    echo "${UNAME}:x:${UID}:" >> /etc/group && \
+#    mkdir -p /etc/sudoers.d && \
+#    echo "${UNAME} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/${UNAME} && \
+#    chmod 0440 /etc/sudoers.d/${UNAME} && \
+#    chown ${UID}:${GID} -R /home/${UNAME} && \
+#    gpasswd -a ${UNAME} audio
 
 #remove xscreensaver
 #RUN apt-get autoremove --purge -y xscreensaver
